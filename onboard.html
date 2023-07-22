@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <meta name="viewport" content="width=device-width, user-scalable=no">
-        <title>Magic Webstore</title>
-        <link rel="shortcut icon" type="image/png" href="favicon.png">
-        <script src="https://bundle.run/noble-secp256k1@1.2.14"></script>
-        
-        <script>
-            var $ = document.querySelector.bind( document );
-            var $$ = document.querySelectorAll.bind( document );
-            var url_params = new URLSearchParams( window.location.search );
-            var url_keys = url_params.keys();
-            var $_GET = {}
-            for ( var key of url_keys ) $_GET[ key ] = url_params.get( key );
-            var relays = [
-                "wss://nostrue.com",
-                "wss://relay.wellorder.net",
-                "wss://nostr.oxtr.dev"
-            ]
-        </script>
-        <script>
-            function bytesToHex( bytes ) {
-                return bytes.reduce( ( str, byte ) => str + byte.toString( 16 ).padStart( 2, "0" ), "" );
-            }
-            function textToHex( text ) {
-                var encoder = new TextEncoder().encode( text );
-                return [...new Uint8Array(encoder)]
-                    .map( x => x.toString( 16 ).padStart( 2, "0" ) )
-                    .join( "" );
-            }
-            function hexToText( hex ) {
-                var bytes = new Uint8Array(Math.ceil(hex.length / 2));
-                for (var i = 0; i < hex.length; i++) bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
-                var text = new TextDecoder().decode( bytes );
-                return text;
-            }
-            function modalVanish() {
-                $( ".black-bg" ).style.display = "none";
-                $( ".modal" ).style.display = "none";
-            }
-            function showModal( content, block_til_clear ) {
-                if ( block_til_clear ) var fn = `modalVanish();sessionStorage[ 'modal_cleared' ] = true;`; else var fn = `modalVanish();`;
-                $( ".modal" ).innerHTML = `<div style="position: absolute;right: 1rem;top: 0.5rem;font-size: 2rem; cursor: pointer;" onclick="${fn}">&times;</div>`;
-                $( ".modal" ).innerHTML += `<div style="overflow-y: scroll; max-height: 80vh; margin-top: 1.5rem;">${content}</div>`;
-                $( ".black-bg" ).style.display = "block";
-                $( ".modal" ).style.display = "block";
-            }
-        </script>
-    </head>
-    <head>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Magic Webstore</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <script src="https://bundle.run/noble-secp256k1@1.2.14"></script>
+
+    <script>
+        var $ = document.querySelector.bind(document);
+        var $$ = document.querySelectorAll.bind(document);
+        var url_params = new URLSearchParams(window.location.search);
+        var url_keys = url_params.keys();
+        var $_GET = {}
+        for (var key of url_keys) $_GET[key] = url_params.get(key);
+        var relays = [
+            "wss://nostrue.com",
+            "wss://relay.wellorder.net",
+            "wss://relay.damus.io"
+        ]
+    </script>
+    <script>
+        function bytesToHex(bytes) {
+            return bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, "0"), "");
+        }
+        function textToHex(text) {
+            var encoder = new TextEncoder().encode(text);
+            return [...new Uint8Array(encoder)]
+                .map(x => x.toString(16).padStart(2, "0"))
+                .join("");
+        }
+        function hexToText(hex) {
+            var bytes = new Uint8Array(Math.ceil(hex.length / 2));
+            for (var i = 0; i < hex.length; i++) bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+            var text = new TextDecoder().decode(bytes);
+            return text;
+        }
+        function modalVanish() {
+            $(".black-bg").style.display = "none";
+            $(".modal").style.display = "none";
+        }
+        function showModal(content, block_til_clear) {
+            if (block_til_clear) var fn = `modalVanish();sessionStorage[ 'modal_cleared' ] = true;`; else var fn = `modalVanish();`;
+            $(".modal").innerHTML = `<div style="position: absolute;right: 1rem;top: 0.5rem;font-size: 2rem; cursor: pointer;" onclick="${fn}">&times;</div>`;
+            $(".modal").innerHTML += `<div style="overflow-y: scroll; max-height: 80vh; margin-top: 1.5rem;">${content}</div>`;
+            $(".black-bg").style.display = "block";
+            $(".modal").style.display = "block";
+        }
+    </script>
+</head>
+
+<head>
     <title>Zapit Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>Zapit Store</h1>
@@ -78,7 +81,8 @@
         </div>
         <div class="signup">
             <div class="signup-header">
-                Magic Webstore doesn't use traditional usernames and passwords; it utilizes magic strings. Make sure to back yours up! Your magic string is the only way to access your store.
+                Magic Webstore doesn't use traditional usernames and passwords; it utilizes magic strings. Make sure to
+                back yours up! Your magic string is the only way to access your store.
             </div>
             <div class="signup-step">
                 <div class="circle">1</div>
@@ -105,54 +109,55 @@
         </div>
     </div>
 
-        <script>
-            var useString = () => {
-                var ms = prompt( "Please enter your magic string" );
-                if ( !ms ) return;
-                var privkey = ms.substring( 0, 64 );
-                var relays = hexToText( ms.substring( 64 ) );
-                var index = window.location.pathname.indexOf( "onboard.htm" ) > -1 ? window.location.pathname.indexOf( "onboard.htm" ):100000;
-                var extra_slash = window.location.pathname.substring( 0, index ).endsWith( "/" ) ? "":"/";
-                var url = window.location.protocol + "//" + window.location.hostname + window.location.pathname.substring( 0, index ) + extra_slash + "index.html?privkey=" + privkey + "&relays=" + encodeURI( relays );
-                window.location.href = url;
-            }
-            var genString = () => {
-  $( '.magic-string-box' ).style.display = "flex";
-  $( '.magic-string' ).innerText = "•";
-  $( '.magic-string' ).style.fontSize = "250%";
-  setTimeout(function() { $( '.magic-string' ).innerText = "••"; }, 200);
-  setTimeout(function() { $( '.magic-string' ).innerText = "•••"; }, 400);
-  setTimeout(function() {
-    $( '.magic-string-box' ).innerHTML = `<p class="magic-string-header">Your magic string</p><div class="magic-string"></div>`;
-    $( '.magic-string' ).style.fontSize = "100%";
-    $( '.magic-string' ).innerText = "00" + bytesToHex(nobleSecp256k1.utils.randomPrivateKey()).substring(2, 64) + textToHex(JSON.stringify(relays));
-  }, 600);
-}
+    <script>
+        var useString = () => {
+            var ms = prompt("Please enter your magic string");
+            if (!ms) return;
+            var privkey = ms.substring(0, 64);
+            var relays = hexToText(ms.substring(64));
+            var index = window.location.pathname.indexOf("onboard.htm") > -1 ? window.location.pathname.indexOf("onboard.htm") : 100000;
+            var extra_slash = window.location.pathname.substring(0, index).endsWith("/") ? "" : "/";
+            var url = window.location.protocol + "//" + window.location.hostname + window.location.pathname.substring(0, index) + extra_slash + "index.html?privkey=" + privkey + "&relays=" + encodeURI(relays);
+            window.location.href = url;
+        }
+        var genString = () => {
+            $('.magic-string-box').style.display = "flex";
+            $('.magic-string').innerText = "•";
+            $('.magic-string').style.fontSize = "250%";
+            setTimeout(function () { $('.magic-string').innerText = "••"; }, 200);
+            setTimeout(function () { $('.magic-string').innerText = "•••"; }, 400);
+            setTimeout(function () {
+                $('.magic-string-box').innerHTML = `<p class="magic-string-header">Your magic string</p><div class="magic-string"></div>`;
+                $('.magic-string').style.fontSize = "100%";
+                $('.magic-string').innerText = "00" + bytesToHex(nobleSecp256k1.utils.randomPrivateKey()).substring(2, 64) + textToHex(JSON.stringify(relays));
+            }, 600);
+        }
 
-            var backupString = () => {
-                var content = `<p>Did you back up your magic string? Save it somewhere safe where only you can access it. Your magic string is the only way to access your store. If you lose it, you will not only lose access to your store but also to any money you received since the last time you withdrew. Make sure you back this up before continuing:</p><p style="text-decoration: underline; font-weight: bold;">Your magic string</p><p>${$( '.magic_string' ).innerText}</p>`;
-                showModal( content );
-            }
-        </script>
-        <script>
-            $( '.signup_btn' ).onclick = () => {
-                $( '.explain' ).style.display = "none";
-                $( '.signup_btn' ).style.display = "none";
-                $( '.back_btn' ).style.display = "inline";
-                $( '.signup' ).style.display = "block";
-                $( '.magic_string_box' ).style.display = "none";
-            }
-            $( '.login_btn' ).onclick = () => {
-                useString();
-            }
-            $( '.back_btn' ).onclick = () => {
-                $( '.explain' ).style.display = "block";
-                $( '.signup_btn' ).style.display = "inline";
-                $( '.back_btn' ).style.display = "none";
-                $( '.signup' ).style.display = "none";
-            }
-        </script>
-        <div class="black-bg"></div>
-        <div class="modal"></div>
-    </body>
+        var backupString = () => {
+            var content = `<p>Did you back up your magic string? Save it somewhere safe where only you can access it. Your magic string is the only way to access your store. If you lose it, you will not only lose access to your store but also to any money you received since the last time you withdrew. Make sure you back this up before continuing:</p><p style="text-decoration: underline; font-weight: bold;">Your magic string</p><p>${$('.magic_string').innerText}</p>`;
+            showModal(content);
+        }
+    </script>
+    <script>
+        $('.signup_btn').onclick = () => {
+            $('.explain').style.display = "none";
+            $('.signup_btn').style.display = "none";
+            $('.back_btn').style.display = "inline";
+            $('.signup').style.display = "block";
+            $('.magic_string_box').style.display = "none";
+        }
+        $('.login_btn').onclick = () => {
+            useString();
+        }
+        $('.back_btn').onclick = () => {
+            $('.explain').style.display = "block";
+            $('.signup_btn').style.display = "inline";
+            $('.back_btn').style.display = "none";
+            $('.signup').style.display = "none";
+        }
+    </script>
+    <div class="black-bg"></div>
+    <div class="modal"></div>
+</body>
+
 </html>
