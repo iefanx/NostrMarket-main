@@ -949,7 +949,7 @@
                     <option>United States</option>
                     <option>Vietnam</option>
                     <option>China</option>
-                </select><input placeholder="usd price (e.g. 5.99)" class="price" type="number" step="0.01" min="0">
+                </select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0">
                 <div style="margin-bottom: 1rem;"><input type="checkbox"
                         style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label
                         for="no_price_0" style="display: inline;vertical-align: middle;">Let users set the price</label>
@@ -973,6 +973,7 @@
     
     <div class="view_store">
         <div class="minicart">
+            
             Cart (<span class="minicart_item_count">0</span>) 
             <button class="view_cart">View cart</button>
             <span id="converted_sats"></span>
@@ -1050,7 +1051,7 @@
             var product = document.createElement("div");
             product.className = "product";
             var num = Math.floor(Math.random() * 10000000);
-            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>--- Shipping zone ---</option><option>Free (digital)</option><option>Worldwide</option><option>Europe</option><option>Australia</option><option>Austria</option><option>Belgium</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>Hong Kong</option><option>Hungary</option><option>Ireland</option><option>Indonesia</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Kazakhstan</option><option>Korea</option><option>Luxembourg</option><option>Malaysia</option><option>Mexico</option><option>Netherlands</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Russia</option><option>Saudi Arabia</option><option>Singapore</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>Thailand</option><option>Turkey</option><option>Ukraine</option><option>United Kingdom</option><option>United States</option><option>Vietnam</option><option>China</option></select><input placeholder="usd price (e.g. 5.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
+            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>Shipping zone</option><option>Free (digital)</option><option>Worldwide</option></select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
             product.getElementsByTagName("label")[0].previousElementSibling.onclick = () => {
                 var elem = product.getElementsByTagName("label")[0].previousElementSibling;
                 if (elem.checked) {
@@ -1070,14 +1071,16 @@
                 var price = !checked ? Number(e.target.parentElement.children[4].value) : `Set an amount<div>$<input type="number" step="0.01" min="0" style="width: 95%;"></div>`;
                 if (typeof price == "number") price = "$" + price.toFixed(2);
                 var html = `
-                    <h2>Preview pane</h2>
-                    <div class="store_product" style="background-color: lightgrey; border: 1px solid black; border-radius: 1rem; width: 100%; max-width: 16rem; text-align: center; padding: 1rem; word-wrap: break-word;">
-                        <img src="${e.target.parentElement.children[1].value}" style="border: 1px solid black; width: 100%; max-width: 10rem; margin: auto;">
-                        <div>${e.target.parentElement.children[0].value}</div>
-                        <div>${price}</div>
-                        <button>View product</button>
-                        <button class="add_to_cart">Add to cart</button>
-                    </div>
+            
+                    <h2>Preview</h2>
+            <div class="store_product">
+                <img src="${e.target.parentElement.children[1].value}"  >
+                <div>${e.target.parentElement.children[0].value}</div>
+                <div>${price}</div>
+                <button>View product</button>
+                <button class="add_to_cart">Add to cart</button>
+            </div>
+
                 `;
                 $('.preview_pane').innerHTML = html;
             }
@@ -1111,8 +1114,8 @@
             if (typeof price == "number") price = "$" + price.toFixed(2);
             var html = `
                 <h2>Preview pane</h2>
-                <div class="store_product" style="background-color: lightgrey; border: 1px solid black; border-radius: 1rem; width: 100%; max-width: 13rem; text-align: center; padding: 1rem; word-wrap: break-word;">
-                    <img src="${e.target.parentElement.children[1].value}" style="border: 1px solid black; width: 100%; max-width: 10rem; margin: auto;">
+                <div class="store_product" >
+                    <img src="${e.target.parentElement.children[1].value}">
                     <div>${e.target.parentElement.children[0].value}</div>
                     <div>${price}</div>
                     <button>View product</button>
@@ -1199,7 +1202,7 @@
                 private += `&network=${$_GET["network"]}`;
             }
             // var content = `<p><a href="${shareable}" target="_blank">Click here</a> to share your store</p><p><a href="${private}" target="_blank">Click here</a> to manage your store and withdraw your earnings</p>`;
-            var content = `Success, <a href="${shareable}" target="_blank">your store</a> is now ready. When you X out of this popup you will be redirected to its backend automatically.`;
+            var content = `Success, <a href="${shareable}" target="_blank">your store</a> {pubKey} now ready. When you X out of this popup you will be redirected to its backend automatically.`;
             showModal(content, true);
             await getNote("modal_cleared");
             //alert( "Here is your sharable store url:\n\n" + url + "?pubkey=" + original_pubkey +
@@ -1214,7 +1217,7 @@
             cart.forEach(function (item) {
                 if (item["shipping_zone"] != "Free (digital)") requires_shipping = true; else requires_edelivery = true;
                 total = total + item["price"];
-                items += `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>${item["item"]}</div><div style="text-align: right;align-self: center;">$${(item["price"] / 100).toFixed(2)} <span style="border: 1px solid black;border-radius: 50%;width: 1.5rem;height: 1.5rem;display: inline-block;text-align: center; cursor: pointer;" onclick="var child = this.parentElement.parentElement;var parent = child.parentNode;var index = Array.prototype.indexOf.call(parent.children, child);cart.splice( index, 1 );renderCart();$( '.minicart_item_count' ).innerText = Number( $( '.minicart_item_count' ).innerText ) - 1;">&times;</span></div></div>`;
+                items += `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>${item["item"]}</div><div style="text-align: right;align-self: center;">$${(item["price"] / 100).toFixed(2)} <span style="border: 1px solid black; border-radius: 50%; width: auto; height: auto; display: inline-block;text-align: center; cursor: pointer;" onclick="var child = this.parentElement.parentElement;var parent = child.parentNode;var index = Array.prototype.indexOf.call(parent.children, child);cart.splice( index, 1 );renderCart();$( '.minicart_item_count' ).innerText = Number( $( '.minicart_item_count' ).innerText ) - 1;">&times;</span></div></div>`;
             });
             var total_div = `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>Total</div><div>$${(total / 100).toFixed(2)} aka ${dollarsToSats((total / 100).toFixed(2))} sats</div></div>`;
             var edelivery_div = ``;
@@ -1236,7 +1239,7 @@ if (requires_shipping) {
             $('.blank_view').innerHTML = `
             <div>
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
-                <div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;">⇦</div>
+                <div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div>
                 <div style="font-weight: bold; font-size: 1.5rem;">Back</div>
                 </div>
                 <h2>Your cart</h2>
@@ -1260,7 +1263,7 @@ if (requires_shipping) {
                 if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
                 if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;">⇦</div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
                     <h2>Checkout</h2>
                     Please send <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and wait for your auto-generated receipt (your shipment is not guaranteed until you have your receipt)
                     <br><br>
@@ -1269,7 +1272,7 @@ if (requires_shipping) {
                 if (ln_domain && ln_readkey) {
                     $('.payment_box').innerHTML += `
                         <div class="payment_buttons">
-                            <button class="ln_button active">Lightning</button>
+                            <button class="ln_button ">Lightning</button>
                             <button class="bl_button">Base layer</button>
                         </div>
                         <div class="payment_content">
@@ -1334,10 +1337,10 @@ if (requires_shipping) {
                     });
                     cart = [];
                     if ($('.minicart_item_count')) $('.minicart_item_count').innerText = 0;
-                    var content = `<p>Thank you for your business. Here is your receipt:</p><p style="font-weight: bold;">Items purchased</p>${receipt_items}<p>Total: $${(total / 100).toFixed(2)}</p><p>Proof of payment: ${whisper_key}</p><p>Keep this on you til you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.</p>`;
+                    var content = `<p>Thank you for your business. Here is your receipt:</p><p style="font-weight: bold;">Items purchased</p>${receipt_items}<p>Total: $${(total / 100).toFixed(2)}</p><p>Proof of payment: ${whisper_key}</p><p>Keep this on you till you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.</p>`;
                     showModal(content, true);
                     await getNote("modal_cleared");
-                    // alert( `Thank you for your business. Here is your proof of payment: ${whisper_key}\n\nKeep this on you til you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.` );
+                    // alert( `Thank you for your business. Here is your proof of payment: ${whisper_key}\n\nKeep this on you till you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.` );
                 }
             }
         }
@@ -1374,7 +1377,7 @@ if (requires_shipping) {
             });
             cart = [];
             if ($('.minicart_item_count')) $('.minicart_item_count').innerText = 0;
-            var content = `<p>Thank you for your business. Here is your receipt:</p><p style="font-weight: bold;">Items purchased</p>${receipt_items}<p>Total: $${(total / 100).toFixed(2)}</p><p>Proof of payment: ${buyer_info["pmthash"]}</p><p>Keep this on you til you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.</p>`;
+            var content = `<p>Thank you for your business. Here is your receipt:</p><p style="font-weight: bold;">Items purchased</p>${receipt_items}<p>Total: $${(total / 100).toFixed(2)}</p><p>Proof of payment: ${buyer_info["pmthash"]}</p><p>Keep this on you till you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.</p>`;
             showModal(content, true);
             await getNote("modal_cleared");
         }
@@ -1720,7 +1723,7 @@ if (requires_shipping) {
                 //it may detect a connection loss on pageload
                 Object.keys(relays_obj).forEach(function (relay) {
                     if (relays_obj[relay].readyState != 1) {
-                        alert("You lost your connection to one of your relays. If you receive this message several times, please refresh your browser.");
+                       
                         relays_obj[relay] = new WebSocket(relay);
                         relays_obj[relay].removeEventListener('open', openConnection);
                         relays_obj[relay].removeEventListener('message', handleMessage);
