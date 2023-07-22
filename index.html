@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="manifest" href="/manifest.json">
-    <meta name="viewport" content="width=device-width, user-scalable=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Zapit Marketplace</title>
     <link rel="shortcut icon" type="image/png" href="favicon.png">
     <script src="https://bitcoincore.tech/apps/bitcoinjs-ui/lib/bitcoinjs-lib.js"></script>
@@ -14,22 +14,8 @@
     <script src="https://bundle.run/browserify-cipher@1.0.1"></script>
     <script src="https://bundle.run/buffer@6.0.3"></script>
     <style>
-        * 
+        *
     </style>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('Service worker registered!', registration);
-        })
-        .catch(error => {
-          console.error('Service worker registration failed:', error);
-        });
-    });
-  }
-</script>
-
     <script>
         var $ = document.querySelector.bind(document);
         var $$ = document.querySelectorAll.bind(document);
@@ -486,7 +472,7 @@
             var relays = JSON.parse(decodeURI($_GET["relays"]));
             relay = relays[0];
         } else {
-            var relays = [relay, "wss://relay.wellorder.net", "wss://nostr.oxtr.dev"];
+            var relays = [relay, "wss://relay.wellorder.net", "wss://relay.damus.io"];
         }
         var relays_obj = {}
         // var socket = new WebSocket( relay );
@@ -638,8 +624,8 @@
                         }
                         return;
                     }
-                
-                    
+
+
                     if (content["price"] !== "custom") {
                         var price = content["price"] / 100;
                     } else {
@@ -900,7 +886,7 @@
             //check invoice: getData( "https://legend.lnbits.com/api/v1/payments/a89f4279b098fa4e6254798619902f3a1bfb3adeabe4006284d842075442d1bf", "application/json", "6eafd20149f6491baa61166faba0d9dc" );
         }
 
-        
+
     </script>
 </head>
 
@@ -922,47 +908,7 @@
                     <option>--- Shipping zone ---</option>
                     <option>Free (digital)</option>
                     <option>Worldwide</option>
-                    <option>Europe</option>
-                    <option>Australia</option>
-                    <option>Austria</option>
-                    <option>Belgium</option>
-                    <option>Brazil</option>
-                    <option>Canada</option>
-                    <option>Denmark</option>
-                    <option>Finland</option>
-                    <option>France</option>
-                    <option>Germany</option>
-                    <option>Greece</option>
-                    <option>Hong Kong</option>
-                    <option>Hungary</option>
-                    <option>Ireland</option>
-                    <option>Indonesia</option>
-                    <option>Israel</option>
-                    <option>Italy</option>
-                    <option>Japan</option>
-                    <option>Kazakhstan</option>
-                    <option>Korea</option>
-                    <option>Luxembourg</option>
-                    <option>Malaysia</option>
-                    <option>Mexico</option>
-                    <option>Netherlands</option>
-                    <option>New Zealand</option>
-                    <option>Norway</option>
-                    <option>Poland</option>
-                    <option>Portugal</option>
-                    <option>Russia</option>
-                    <option>Saudi Arabia</option>
-                    <option>Singapore</option>
-                    <option>Spain</option>
-                    <option>Sweden</option>
-                    <option>Switzerland</option>
-                    <option>Thailand</option>
-                    <option>Turkey</option>
-                    <option>Ukraine</option>
-                    <option>United Kingdom</option>
-                    <option>United States</option>
-                    <option>Vietnam</option>
-                    <option>China</option>
+
                 </select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0">
                 <div style="margin-bottom: 1rem;"><input type="checkbox"
                         style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label
@@ -984,31 +930,25 @@
             <div class="status"></div>
         </div>
     </div>
-    
+
     <div class="view_store">
         <div class="minicart">
-            
-            Cart (<span class="minicart_item_count">0</span>) 
+
+            Cart (<span class="minicart_item_count">0</span>)
             <button class="view_cart">View cart</button>
             <span id="converted_sats"></span>
         </div>
-        <div class="store_products" style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;"></div>
+        <div class="store_products"
+            style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;"></div>
     </div>
     <div class="blank_view"></div>
-    
-    <script>
-        // Calculate the converted value
-        var convertedSats = dollarsToSats((total / 100).toFixed(2));
-    
-        // Display the converted value in the HTML
-        document.getElementById('converted_sats').innerText = convertedSats;
-    </script>
-    
 
     
+
+
     <script>
 
-        
+
         if (!$_GET["pubkey"] && !$_GET["privkey"]) $('.title').style.display = "block";
         $('.store_name').value = "";
         var title = {
@@ -1079,7 +1019,7 @@
             }
             var button = document.createElement("button");
             button.innerText = "Product preview";
-            
+
             button.onclick = (e) => {
                 var checked = e.target.parentElement.children[5].children[0].checked;
                 var price = !checked ? Number(e.target.parentElement.children[4].value) : `Set an amount<div>$<input type="number" step="0.01" min="0" style="width: 95%;"></div>`;
@@ -1235,21 +1175,21 @@
             });
             var total_div = `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>Total</div><div>$${(total / 100).toFixed(2)} aka ${dollarsToSats((total / 100).toFixed(2))} sats</div></div>`;
             var edelivery_div = ``;
-if (requires_edelivery) {
-  edelivery_div = `
+            if (requires_edelivery) {
+                edelivery_div = `
     <div class="delivery-instructions">
       <label for="edelivery_instructions">Enter instructions for how to deliver your digital good(s)</label>
       <textarea id="edelivery_instructions" class="edelivery_form"  style="width: 100%; height: 5rem;"></textarea>
     </div>`;
-}
-var shipping_div = ``;
-if (requires_shipping) {
-  shipping_div = `
+            }
+            var shipping_div = ``;
+            if (requires_shipping) {
+                shipping_div = `
     <div class="shipping-label">
       <label for="shipping_label">Enter what you want on your shipping label (and, if desired, a message for the merchant)</label>
       <textarea id="shipping_label" class="shipping_label_form" style="width: 100%; height: 5rem;"></textarea>
     </div>`;
-}
+            }
             $('.blank_view').innerHTML = `
             <div>
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
@@ -1295,24 +1235,24 @@ if (requires_shipping) {
                         </div>
                     `;
 
-    // Add event listener for Base Layer button
-    $('.bl_button').onclick = () => {
-        $('.bl_box').style.display = "block";
-        $('.ln_box').style.display = "none";
-        $('.bl_button').classList.add('active');
-        $('.ln_button').classList.remove('active');
-    };
+                    // Add event listener for Base Layer button
+                    $('.bl_button').onclick = () => {
+                        $('.bl_box').style.display = "block";
+                        $('.ln_box').style.display = "none";
+                        $('.bl_button').classList.add('active');
+                        $('.ln_button').classList.remove('active');
+                    };
 
-    // Add event listener for Lightning button
-    $('.ln_button').onclick = async () => {
-        $('.bl_box').style.display = "none";
-        $('.ln_box').style.display = "block";
-        $('.ln_button').classList.add('active');
-        $('.bl_button').classList.remove('active');
-    };
+                    // Add event listener for Lightning button
+                    $('.ln_button').onclick = async () => {
+                        $('.bl_box').style.display = "none";
+                        $('.ln_box').style.display = "block";
+                        $('.ln_button').classList.add('active');
+                        $('.bl_button').classList.remove('active');
+                    };
 
-    getInvoice(total);
-}
+                    getInvoice(total);
+                }
 
                 var div = document.createElement("div");
                 div.className = "bl_box";
@@ -1737,7 +1677,7 @@ if (requires_shipping) {
                 //it may detect a connection loss on pageload
                 Object.keys(relays_obj).forEach(function (relay) {
                     if (relays_obj[relay].readyState != 1) {
-                       
+
                         relays_obj[relay] = new WebSocket(relay);
                         relays_obj[relay].removeEventListener('open', openConnection);
                         relays_obj[relay].removeEventListener('message', handleMessage);
