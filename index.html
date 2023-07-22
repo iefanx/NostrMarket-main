@@ -17,6 +17,20 @@
         * 
     </style>
     <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service worker registered!', registration);
+        })
+        .catch(error => {
+          console.error('Service worker registration failed:', error);
+        });
+    });
+  }
+</script>
+
+    <script>
         var $ = document.querySelector.bind(document);
         var $$ = document.querySelectorAll.bind(document);
         var url_params = new URLSearchParams(window.location.search);
