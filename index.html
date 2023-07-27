@@ -907,11 +907,8 @@
             <h2 class="product_instructions">Add products</h2>
             <div class="product">
                 <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description"
-                    class="desc"></textarea><select placeholder="shipping zone">
-                    <option>Shipping type</option>
-                    <option>Worldwide</option>
-
-                </select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0">
+                    class="desc"></textarea>
+                    <input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0">
                 <div style="margin-bottom: 1rem;"><input type="checkbox"
                         style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label
                         for="no_price_0" style="display: inline;vertical-align: middle;">Let users set the price</label>
@@ -1004,7 +1001,7 @@
             var product = document.createElement("div");
             product.className = "product";
             var num = Math.floor(Math.random() * 10000000);
-            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping type"><option>Shipping type</option><option>Worldwide</option></select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
+            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
             product.getElementsByTagName("label")[0].previousElementSibling.onclick = () => {
                 var elem = product.getElementsByTagName("label")[0].previousElementSibling;
                 if (elem.checked) {
