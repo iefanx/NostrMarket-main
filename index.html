@@ -6,13 +6,15 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>Zapit Marketplace</title>
+    <title>Zapit Store
+    </title>
     <link rel="shortcut icon" type="image/png" href="favicon.png">
     <script src="https://bitcoincore.tech/apps/bitcoinjs-ui/lib/bitcoinjs-lib.js"></script>
     <script src="https://supertestnet.github.io/bitcoin-chess/js/qrcode.js"></script>
     <script src="https://bundle.run/noble-secp256k1@1.2.14"></script>
     <script src="https://bundle.run/browserify-cipher@1.0.1"></script>
     <script src="https://bundle.run/buffer@6.0.3"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         *
     </style>
@@ -905,7 +907,7 @@
             <div class="product">
                 <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description"
                     class="desc"></textarea><select placeholder="shipping zone">
-                    <option>--- Shipping zone ---</option>
+                    <option>Shipping type</option>
                     <option>Free (digital)</option>
                     <option>Worldwide</option>
 
@@ -918,23 +920,20 @@
             </div>
         </div>
         <p><button class="store_maker">Submit</button></p>
-        <div class="preview_pane"></div>
-        <div class="progress" style="display: none;">
-            <h2>Progress bar <span id="goal" style="font-size: .8em; font-weight: normal;"></span></h2>
-            <div class="progressOutline"
-                style="height: 2em; border: 1px solid grey; border-radius: 25px; overflow: hidden;">
-                <div class="progressBar"
-                    style="height: 2em; background-color: #5545b5; width: 0%; transition: width 1s;">
-                </div>
-            </div>
-            <div class="status"></div>
-        </div>
+  <div class="preview_pane"></div>
+  <div class="progress">
+    <h2>Progress bar </h2>
+    <div class="progressOutline">
+      <div class="progressBar"></div>
+    </div>
+    <div class="status"></div>
+  </div>
     </div>
 
     <div class="view_store">
         <div class="minicart">
 
-            Cart (<span class="minicart_item_count">0</span>)
+            Cart <span class="minicart_item_count">0</span>
             <button class="view_cart">View cart</button>
             <span id="converted_sats"></span>
         </div>
@@ -1005,7 +1004,7 @@
             var product = document.createElement("div");
             product.className = "product";
             var num = Math.floor(Math.random() * 10000000);
-            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>Shipping zone</option><option>Free (digital)</option><option>Worldwide</option></select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
+            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping type"><option>Shipping type</option><option>Worldwide</option></select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
             product.getElementsByTagName("label")[0].previousElementSibling.onclick = () => {
                 var elem = product.getElementsByTagName("label")[0].previousElementSibling;
                 if (elem.checked) {
@@ -1018,7 +1017,8 @@
                 }
             }
             var button = document.createElement("button");
-            button.innerText = "Product preview";
+                button.innerText = "Product preview";
+                button.classList.add("product-preview-button");
 
             button.onclick = (e) => {
                 var checked = e.target.parentElement.children[5].children[0].checked;
@@ -1083,7 +1083,7 @@
             var i; for (i = 0; i < $$('select').length; i++) {
                 var item = $$('select')[i];
                 if (item.value.includes("---")) {
-                    alert("You forgot to select a shipping zone on one of your products. Please try again.");
+                    alert("You forgot to select a shipping type on one of your products. Please try again.");
                     return;
                 }
             }
@@ -1171,25 +1171,25 @@
             cart.forEach(function (item) {
                 if (item["shipping_zone"] != "Free (digital)") requires_shipping = true; else requires_edelivery = true;
                 total = total + item["price"];
-                items += `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>${item["item"]}</div><div style="text-align: right;align-self: center;">$${(item["price"] / 100).toFixed(2)} <span style="border: 1px solid black; border-radius: 50%; width: auto; height: auto; display: inline-block;text-align: center; cursor: pointer;" onclick="var child = this.parentElement.parentElement;var parent = child.parentNode;var index = Array.prototype.indexOf.call(parent.children, child);cart.splice( index, 1 );renderCart();$( '.minicart_item_count' ).innerText = Number( $( '.minicart_item_count' ).innerText ) - 1;">&times;</span></div></div>`;
+                items += `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>${item["item"]}</div><div style="text-align: right;align-self: center;">$${(item["price"] / 100).toFixed(2)} <span style=" width: auto; height: auto; display: inline-block;text-align: center; cursor: pointer;" onclick="var child = this.parentElement.parentElement;var parent = child.parentNode;var index = Array.prototype.indexOf.call(parent.children, child);cart.splice( index, 1 );renderCart();$( '.minicart_item_count' ).innerText = Number( $( '.minicart_item_count' ).innerText ) - 1;">&times;</span></div></div>`;
             });
             var total_div = `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>Total</div><div>$${(total / 100).toFixed(2)} aka ${dollarsToSats((total / 100).toFixed(2))} sats</div></div>`;
             var edelivery_div = ``;
             if (requires_edelivery) {
                 edelivery_div = `
-    <div class="delivery-instructions">
-      <label for="edelivery_instructions">Enter instructions for how to deliver your digital good(s)</label>
-      <textarea id="edelivery_instructions" class="edelivery_form"  style="width: 100%; height: 5rem;"></textarea>
-    </div>`;
+                <div class="delivery-instructions">
+                <label for="edelivery_instructions">Enter instructions for how to deliver your digital good </label>
+                <textarea id="edelivery_instructions" class="edelivery_form"  style="width: 100%; height: 5rem;"></textarea>
+                </div>`;
             }
             var shipping_div = ``;
             if (requires_shipping) {
                 shipping_div = `
-    <div class="shipping-label">
-      <label for="shipping_label">Enter what you want on your shipping label (and, if desired, a message for the merchant)</label>
-      <textarea id="shipping_label" class="shipping_label_form" style="width: 100%; height: 5rem;"></textarea>
-    </div>`;
-            }
+                <div class="delivery-instructions">
+                <label for="edelivery_instructions">Enter instructions for how to deliver your digital good(s)</label>
+                <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Write your instructions here..."></textarea>
+                </div>`;
+                            }
             $('.blank_view').innerHTML = `
             <div>
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
