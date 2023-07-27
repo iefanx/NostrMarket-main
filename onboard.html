@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>Magic Webstore</title>
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <title>ℤapit Store</title>
+    <link rel="shortcut icon" type="image/png" href="logo.png">
     <script src="https://bundle.run/noble-secp256k1@1.2.14"></script>
 
     <script>
@@ -54,20 +54,20 @@
 </head>
 
 <head>
-    <title>Zapit Store</title>
+    <title>ℤapit Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <header>
-        <h1>Zapit Store</h1>
+        <h1>ℤapit Store</h1>
     </header>
     <div class="container">
         <div class="explain">
             <div class="row">
                 <div class="basics">
                     <h2 class="big_title">
-                        Nostr-based portable marketplace, no centralized server, just you and your relay.
+                        Create portable marketplace powered by Nostr and Bitcoin, you share it anywhere.
                     </h2>
                     <div class="big_buttons">
                         <button class="big_button signup_btn">Get Started</button>
@@ -83,24 +83,24 @@
         </div>
         <div class="signup">
             <div class="signup-header">
-                Zapit Store doesn't use traditional usernames and passwords; it utilizes private ke. Make sure to
+                Zapit Store doesn't use traditional usernames and passwords; it utilizes private key. Make sure to
                 back yours up! Your private key is the only way to access your store.
             </div>
             <div class="signup-step">
                 <div class="circle">1</div>
                 <div class="instruction">
-                    <span class="blue" onclick="genString()">Generate</span> 
+                    <span class="blue" onclick="genString()">Generate</span> your private key
                 </div>
             </div>
             <div class="magic-string-box">
-                <p class="magic-string-header">Your privateKey</p>
-                
+                <p class="magic-string-header">Your private key</p>
+                <div class="magic-string"></div>
             </div>
-            
+        
             <div class="signup-step">
                 <div class="circle">2</div>
                 <div class="instruction">
-                    <span class="blue" onclick="useString()">Log in</span> with your magic string
+                    <span class="blue" onclick="useString()">Log in</span> with your private key
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
 
     <script>
         var useString = () => {
-            var ms = prompt("Please enter your magic string");
+            var ms = prompt("Please enter your private key");
             if (!ms) return;
             var privkey = ms.substring(0, 64);
             var relays = hexToText(ms.substring(64));
