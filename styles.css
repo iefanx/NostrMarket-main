@@ -14,7 +14,7 @@ body {
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 30px;
   text-align: left;
   margin-top: -15px;
   margin-left: 5%;
@@ -22,7 +22,8 @@ h1 {
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1rem;
+  
 }
 
 input,
@@ -398,6 +399,7 @@ button:hover {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+
   }
   
   h1 {
@@ -406,7 +408,7 @@ button:hover {
   }
   
   h2 {
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     color: #000;
     margin: 0 0 10px 0;
@@ -690,7 +692,7 @@ button:hover {
 }
 
 .back_btn {
-  background-color: #3498db;
+  background-color: #5545b5;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -719,7 +721,7 @@ button:hover {
 .circle {
   width: 25px;
   height: 25px;
-  background-color: #3498db;
+  background-color: #5545b5;
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -734,7 +736,7 @@ button:hover {
 }
 
 .blue {
-  color: #3498db;
+  color: #5545b5;
   cursor: pointer;
 }
 
@@ -761,7 +763,7 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
   word-wrap: break-word; /* Added word-wrap to allow text wrapping */
-  max-width: 95%;
+  max-width: 100%;
 }
 
 
@@ -790,6 +792,7 @@ button:hover {
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
+  margin-top: 15px;
 }
 
 /* Back button styles */
@@ -804,10 +807,12 @@ button:hover {
 
 /* Heading styles */
 h2 {
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 20px;
   color: #333;
+
+
 }
 
 /* Item list styles */
