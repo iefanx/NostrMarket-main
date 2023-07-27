@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Zapit Store
     </title>
@@ -691,7 +691,7 @@
                             $('.store_products').style.display = "none";
                             $('.blank_view').innerHTML = `
                                 <div class="viewed_product">
-                                    <div style="display: flex; align-items: center; cursor: pointer; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.store_products' ).style.display = 'flex';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
+                                    <div style="display: flex; align-items: center; cursor: pointer; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.store_products' ).style.display = 'flex';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
                                     <div style="font-weight: bold;">Product</div>
                                     <div><span class="product_name"></span></div><br>
                                     <img class="product_image" style="border: 1px solid black; width: 100%; margin: auto;"><br><br>
@@ -1186,21 +1186,21 @@
             if (requires_shipping) {
                 shipping_div = `
                 <div class="delivery-instructions">
-                <label for="edelivery_instructions">Enter instructions for how to deliver your digital good(s)</label>
+                <label for="edelivery_instructions">Please enter your full address with pin code, and also provide your email or your public key.</label>
                 <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Write your instructions here..."></textarea>
                 </div>`;
             }
             $('.blank_view').innerHTML = `
-            <div>
+            <div class="container">
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
-                <div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div>
-                <div style="font-weight: bold; font-size: 1.5rem;">Back</div>
+                
+                <div style="font-weight: bold; font-size: 2rem;">⇦</div>
                 </div>
                 <h2>Your cart</h2>
                 <div class="items">${items}</div>
-                ${total_div}
-                ${edelivery_div}
-                ${shipping_div}
+                <div class="total">${total_div}</div>
+                    <div class="edelivery">${edelivery_div}</div>
+                        <div class="shipping">${shipping_div}</div>
                 <div style="text-align: right;">
                 <button class="checkout button-color">Checkout</button> <!-- Apply the button-color class here -->
                 </div>
@@ -1217,9 +1217,9 @@
                 if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
                 if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
                     <h2>Checkout</h2>
-                    Please send <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and wait for your auto-generated receipt (your shipment is not guaranteed until you have your receipt)
+                    Kindly send  <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and await your auto-generated receipt. Please note that your shipment is not guaranteed until you receive the receipt.
                     <br><br>
                     <div class="payment_box"></div>
                 `;
