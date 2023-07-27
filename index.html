@@ -557,7 +557,7 @@
                         $('.name_instructions').innerText = "Manage name";
                         $('.product_instructions').innerText = "Manage products";
                         $('.public_link').style.display = "inline";
-                        $('.public_link').href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + `?pubkey=${original_pubkey}&relays=${encodeURI(JSON.stringify(relays))}`;
+                        $('.public_link').href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + `?pubkey=${original_pubkey}`;
                     }
                     products = [];
                     $('.store_products').innerHTML = ``;
@@ -691,7 +691,7 @@
                             $('.store_products').style.display = "none";
                             $('.blank_view').innerHTML = `
                                 <div class="viewed_product">
-                                    <div style="display: flex; align-items: center; cursor: pointer; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.store_products' ).style.display = 'flex';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;">⇦</div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
+                                    <div style="display: flex; align-items: center; cursor: pointer; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.store_products' ).style.display = 'flex';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
                                     <div style="font-weight: bold;">Product</div>
                                     <div><span class="product_name"></span></div><br>
                                     <img class="product_image" style="border: 1px solid black; width: 100%; margin: auto;"><br><br>
@@ -920,14 +920,14 @@
             </div>
         </div>
         <p><button class="store_maker">Submit</button></p>
-  <div class="preview_pane"></div>
-  <div class="progress">
-    <h2>Progress bar </h2>
-    <div class="progressOutline">
-      <div class="progressBar"></div>
-    </div>
-    <div class="status"></div>
-  </div>
+        <div class="preview_pane"></div>
+        <div class="progress">
+            <h2>Progress bar </h2>
+            <div class="progressOutline">
+                <div class="progressBar"></div>
+            </div>
+            <div class="status"></div>
+        </div>
     </div>
 
     <div class="view_store">
@@ -942,7 +942,7 @@
     </div>
     <div class="blank_view"></div>
 
-    
+
 
 
     <script>
@@ -1017,8 +1017,8 @@
                 }
             }
             var button = document.createElement("button");
-                button.innerText = "Product preview";
-                button.classList.add("product-preview-button");
+            button.innerText = "Product preview";
+            button.classList.add("product-preview-button");
 
             button.onclick = (e) => {
                 var checked = e.target.parentElement.children[5].children[0].checked;
@@ -1149,14 +1149,14 @@
             // socket.send(JSON.stringify([ "EVENT", signedEvent ]));
             if (window.location.href.indexOf("?") > -1) var url = window.location.href.substring(0, window.location.href.indexOf("?")); else var url = window.location.href;
             sessionStorage.removeItem("modal_cleared");
-            var shareable = `${url}?pubkey=${original_pubkey}&relays=${encodeURI(JSON.stringify(relays))}`;
+            var shareable = `${url}?pubkey=${original_pubkey}`;
             var private = `${url}?privkey=${privKey}&relays=${encodeURI(JSON.stringify(relays))}`;
             if ($_GET["network"]) {
                 shareable += `&network=${$_GET["network"]}`;
                 private += `&network=${$_GET["network"]}`;
             }
             // var content = `<p><a href="${shareable}" target="_blank">Click here</a> to share your store</p><p><a href="${private}" target="_blank">Click here</a> to manage your store and withdraw your earnings</p>`;
-            var content = `Success, <a href="${shareable}" target="_blank">your store</a> {pubKey} now ready. When you X out of this popup you will be redirected to its backend automatically.`;
+            var content = `Success, Click on the <a href="${shareable}" target="_blank">your store</a>  button to visit your personal store & you can also share that link with anyone.`;
             showModal(content, true);
             await getNote("modal_cleared");
             //alert( "Here is your sharable store url:\n\n" + url + "?pubkey=" + original_pubkey +
@@ -1189,11 +1189,11 @@
                 <label for="edelivery_instructions">Enter instructions for how to deliver your digital good(s)</label>
                 <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Write your instructions here..."></textarea>
                 </div>`;
-                            }
+            }
             $('.blank_view').innerHTML = `
             <div>
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
-                <div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div>
+                <div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div>
                 <div style="font-weight: bold; font-size: 1.5rem;">Back</div>
                 </div>
                 <h2>Your cart</h2>
@@ -1217,7 +1217,7 @@
                 if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
                 if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
                     <h2>Checkout</h2>
                     Please send <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and wait for your auto-generated receipt (your shipment is not guaranteed until you have your receipt)
                     <br><br>
@@ -1446,7 +1446,7 @@
                 $('.blank_view').style.display = "block";
                 $('.blank_view').innerHTML = `
                     <div>
-                        <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.products' ).style.display = 'block';$( '.store_maker' ).parentElement.style.display = 'block';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;">⇦</div><div style="font-size: 1.5rem; font-weight: bold;">Back</div></div>
+                        <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.products' ).style.display = 'block';$( '.store_maker' ).parentElement.style.display = 'block';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-size: 1.5rem; font-weight: bold;">Back</div></div>
                         <div style="display: flex; flex-wrap: wrap; justify-content: space-between;"><div style="font-weight: bold;">Wallet</div><button class="connect_node">Connect your node</button></div><br>
                         <div class="wallet" style="display: flex;justify-content: space-between;background-color: orange;padding: 0.5rem;align-items: center;"><div>Base layer balance: $<span class="usd_balance">0.00</span> (<span class="btc_balance">0</span>&nbsp;sats)</div><div><button class="withdraw">Withdraw</button></div></div><br>
                 `;
