@@ -6,7 +6,7 @@
 
 body {
   font-size: 1.15rem;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   max-width: 80%;
   padding: 3rem 1rem;
   margin: auto;
@@ -278,7 +278,7 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 85%;
   max-width: 560px;
   background-color: white;
   border-radius: 1rem;
@@ -612,5 +612,221 @@ button:hover {
     background-color: #806bf7;
 }
 
+/* Hide the "Preview" button */
+
+  .product-preview-button {
+    display: none; /* Hide the button with this class */
+  }
+
+  .preview {
+    display: none;
+  }
   
-  
+.delivery-instructions label {
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333; /* Adjust color as per your preference */
+}
+
+/* Minimalist design for the textarea */
+.delivery-instructions textarea {
+  width: 90%;
+  height: 5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc; /* Adjust border color as per your preference */
+  border-radius: 4px;
+  resize: vertical; /* Allow vertical resizing if needed */
+  font-size: 1rem;
+  color: #555; /* Adjust color as per your preference */
+}
+
+
+.progress {
+  display: none;
+  text-align: center;
+  padding: 1rem;
+}
+
+.progress h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.progressOutline {
+  height: 1em;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 1em;
+  background-color: #5545b5;
+  width: 0%;
+  transition: width 1s;
+}
+
+.status {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.back_btn-container {
+  text-align: left;
+}
+
+.back_btn {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signup-header {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.signup-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.circle {
+  width: 25px;
+  height: 25px;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.instruction {
+  font-size: 16px;
+  color: #333;
+}
+
+.blue {
+  color: #3498db;
+  cursor: pointer;
+}
+
+.magic-string-box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.magic-string-header {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.magic-string {
+  font-size: 20px;
+  text-align: center;
+  color: #333;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  word-wrap: break-word; /* Added word-wrap to allow text wrapping */
+  max-width: 90%;
+}
+
+
+
+.minicart_item_count {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  padding: 2px 8px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Apply a CSS reset to remove default styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Minimalist styles for the container */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+/* Back button styles */
+.back-btn {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Heading styles */
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Item list styles */
+.items {
+  margin-bottom: 20px;
+}
+
+/* Total, Estimated Delivery, and Shipping styles */
+.total, .edelivery, .shipping {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+/* Checkout button styles */
+.checkout-btn {
+  text-align: right;
+}
+
+
+
+
+
