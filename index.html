@@ -557,7 +557,7 @@
                         $('.name_instructions').innerText = "Manage name";
                         $('.product_instructions').innerText = "Manage products";
                         $('.public_link').style.display = "inline";
-                       $('.public_link').href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + `?pubkey=${original_pubkey}&relays=${encodeURI( JSON.stringify( relays ) )}`;
+                        $('.public_link').href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + `?pubkey=${original_pubkey}&relays=${encodeURI( JSON.stringify( relays ) )}`;
                     }
                     products = [];
                     $('.store_products').innerHTML = ``;
@@ -909,7 +909,6 @@
                 <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description"
                     class="desc"></textarea><select placeholder="shipping zone">
                     <option>Shipping type</option>
-                    <option>Free (digital)</option>
                     <option>Worldwide</option>
 
                 </select><input placeholder="usd price (e.g. 1.99)" class="price" type="number" step="0.01" min="0">
