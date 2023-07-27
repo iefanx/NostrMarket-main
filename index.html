@@ -893,6 +893,7 @@
 </head>
 
 <body>
+    
     <div class="title"></div>
     <div class="splash_screen">Loading...</div>
     <div class="make_store">
@@ -902,7 +903,7 @@
                 <h2 class="name_instructions">Name your store</h2>
                 <a class="public_link" target="_blank"><button>View store</button></a>
             </div>
-            <input class="store_name">
+            <input class="store_name" placeholder="Your Store Name" value="Pre-filled Store Name">
             <h2 class="product_instructions">Add products</h2>
             <div class="product">
                 <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description"
@@ -952,7 +953,7 @@
         $('.store_name').value = "";
         var title = {
             html: () => {
-                var default_name = "Welcome to Zapit Marketplaces, a simple webstore based on bitcoin";
+                var default_name = "ℤapit 𝕊tore";
                 var name = title.name ? title.name : default_name;
                 return `
               <h1>${name}</h1>
