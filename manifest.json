@@ -2,7 +2,7 @@
   "name": "Zapit Store",
   "short_name": "Zapit Store",
   "description": "Nostr Portable Marketplace",
-  "start_url": ".",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
