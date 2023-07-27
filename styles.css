@@ -761,7 +761,7 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
   word-wrap: break-word; /* Added word-wrap to allow text wrapping */
-  max-width: 90%;
+  max-width: 95%;
 }
 
 
