@@ -1,34 +1,34 @@
 {
-  "name": "Your PWA Name",
-  "short_name": "Short Name",
-  "description": "A brief description of your PWA",
+  "name": "Zapit Store",
+  "short_name": "Zapit Store",
+  "description": "Nostr Portable Marketplace",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "icon-48x48.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "icon-96x96.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "icon-144x144.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "icon-192x192.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
