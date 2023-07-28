@@ -1208,10 +1208,14 @@
                 if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
                 if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 1.5rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
                     <h2>Checkout</h2>
-                    Kindly send  <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and await your auto-generated receipt. Please note that your shipment is not guaranteed until you receive the receipt.
-                    <br><br>
+                    <p class="main-content">
+                        Please do not close or refresh this page after making the payment until you receive the receipt here.
+                        Once you have made the payment, return to this page and wait for the receipt. <br>
+                        If you do not receive the receipt after payment, please contact the store owner. 
+                        Total amount: <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats.
+                        </p>
                     <div class="payment_box"></div>
                 `;
                 if (ln_domain && ln_readkey) {
