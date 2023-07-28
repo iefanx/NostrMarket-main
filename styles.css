@@ -11,6 +11,7 @@ body {
   padding: 3rem 1rem;
   margin: auto;
   line-height: 1.25;
+  background-color: #f0f0f0;
 }
 
 h1 {
@@ -895,4 +896,16 @@ h2 {
   border: 1px solid #ccc;
   padding: 1rem;
   background-color: white;
+}
+
+
+span.sats_to_pay {
+  font-weight: bold;
+  color: #5545b5;
+}
+
+.main-content {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
