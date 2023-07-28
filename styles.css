@@ -712,9 +712,10 @@ button:hover {
 }
 
 .signup-header {
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 20px;
-  color: #555;
+  color: #272626;
+  font-weight: bold ;
 }
 
 .signup-step {
@@ -734,6 +735,7 @@ button:hover {
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+  display: none;
 }
 
 .instruction {
