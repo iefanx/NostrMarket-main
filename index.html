@@ -557,7 +557,7 @@
                         $('.name_instructions').innerText = "Manage name";
                         $('.product_instructions').innerText = "Manage products";
                         $('.public_link').style.display = "inline";
-                        $('.public_link').href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + `?pubkey=${original_pubkey}&relays=${encodeURI(JSON.stringify(relays))}`;
+                        $('.public_link').href = window.location.protocol + "//" + window.location.hostname + window.location.pathname + `?pubkey=${original_pubkey}&relays=${encodeURI( JSON.stringify( relays ) )}`;
                     }
                     products = [];
                     $('.store_products').innerHTML = ``;
@@ -893,7 +893,7 @@
 </head>
 
 <body>
-
+    
     <div class="title"></div>
     <div class="splash_screen">Loading...</div>
     <div class="make_store">
@@ -906,17 +906,7 @@
             <input class="store_name">
             <h2 class="product_instructions">Add products</h2>
             <div class="product">
-                <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description"
-                    class="desc"></textarea><select placeholder="shipping zone">
-                    <option>--- Shipping zone ---</option>
-                    <option>Write in description</option>
-                    <option>Worldwide</option>
-                </select><input placeholder="usd price (e.g. 0.99)" class="price" type="number" step="0.01" min="0">
-                <div style="margin-bottom: 1rem;"><input type="checkbox" margin="2px"
-                        style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label
-                        for="no_price_0" style="display: inline;vertical-align: middle;">Let users set the price</label>
-                </div><button class="preview">Product preview</button><button class="plus_and_minus">Add another
-                    product</button>
+                <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>--- Shipping zone ---</option><option>Write in description</option><option>Worldwide</option></select><input placeholder="usd price (e.g. 0.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" margin="2px" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label for="no_price_0"  style="display: inline;vertical-align: middle;">Let users set the price</label></div><button class="preview">Product preview</button><button class="plus_and_minus">Add another product</button>
             </div>
         </div>
         <p><button class="store_maker">Submit</button></p>
@@ -932,7 +922,7 @@
 
     <div class="view_store">
         <div class="minicart">
-
+            
 
             Cart <span class="minicart_item_count">0</span>
             <button class="view_cart">View cart</button>
@@ -1184,13 +1174,13 @@
                 </div>`;
             }
             var shipping_div = ``;
-            if (requires_shipping) {
-                shipping_div = `
+                if (requires_shipping) {
+                    shipping_div = `
                     <div class="delivery-instructions">
                         <label for="edelivery_instructions" style="font-size: 13px; width: 100%;">Please enter your full address with pin code, and also provide your email or your public key or ask the store owner</label>
                         <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Name...,  Address..., Contact.... & other  " style="font-size: 12px;"></textarea>
                     </div>`;
-            }
+                }
 
             $('.blank_view').innerHTML = `
             <div class="container">
