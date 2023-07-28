@@ -27,6 +27,10 @@ h2 {
   
 }
 
+h3 {
+  font-size: .7rem;
+  
+}
 input,
 textarea {
   line-height: 1.25;
@@ -208,6 +212,7 @@ button {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  margin: 2px;
 }
 
 button:hover {
@@ -635,7 +640,7 @@ button:hover {
 
 /* Minimalist design for the textarea */
 .delivery-instructions textarea {
-  width: 90%;
+  width: 95%;
   height: 5rem;
   padding: 0.5rem;
   border: 1px solid #ccc; /* Adjust border color as per your preference */
@@ -905,7 +910,8 @@ span.sats_to_pay {
 }
 
 .main-content {
-  font-size: 1.2rem;
+  font-size: .8rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  font-weight: bold;
 }
