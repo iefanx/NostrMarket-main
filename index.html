@@ -1173,13 +1173,14 @@
                 </div>`;
             }
             var shipping_div = ``;
-            if (requires_shipping) {
-                shipping_div = `
-                <div class="delivery-instructions">
-                <label for="edelivery_instructions">Please enter your full address with pin code, and also provide your email or your public key.</label>
-                <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Write your instructions here..."></textarea>
-                </div>`;
-            }
+                if (requires_shipping) {
+                    shipping_div = `
+                    <div class="delivery-instructions">
+                        <label for="edelivery_instructions" style="font-size: 13px; width: 95%;">Please enter your full address with pin code, and also provide your email or your public key.</label>
+                        <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Write your instructions here..." style="font-size: 16px;"></textarea>
+                    </div>`;
+                }
+
             $('.blank_view').innerHTML = `
             <div class="container">
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
@@ -1435,17 +1436,21 @@
                 $('.store_maker').parentElement.style.display = "none";
                 $('.blank_view').style.display = "block";
                 $('.blank_view').innerHTML = `
-                    <div>
-                        <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.products' ).style.display = 'block';$( '.store_maker' ).parentElement.style.display = 'block';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-size: 1.5rem; font-weight: bold;">Back</div></div>
-                        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;"><div style="font-weight: bold;">Wallet</div><button class="connect_node">Connect your node</button></div><br>
-                        <div class="wallet" style="display: flex;justify-content: space-between;background-color: orange;padding: 0.5rem;align-items: center;"><div>Base layer balance: $<span class="usd_balance">0.00</span> (<span class="btc_balance">0</span>&nbsp;sats)</div><div><button class="withdraw">Withdraw</button></div></div><br>
-                `;
-                if (ln_domain && ln_readkey) $('.blank_view').innerHTML += `                
-                        <div class="ln_wallet" style="display: flex;justify-content: space-between;background-color: lightblue;padding: 0.5rem;align-items: center;"><div>Lightning balance: $<span class="usd_balance">0.00</span> (<span class="btc_balance">0</span>&nbsp;sats)</div><div><button class="withdraw">Manage</button></div></div><br>
-                `;
-                $('.blank_view').innerHTML += `
-                        <div style="font-weight: bold;">Sales</div><br>
-                        <div class="orders"></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.products' ).style.display = 'block';$( '.store_maker' ).parentElement.style.display = 'block';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-size: 2rem; font-weight: bold;">⇦</div></div>
+            <div class="wallet_title">Wallet</div>
+            <button class="connect_node">Connect your node</button>
+            <div class="wallet">
+                <div>Base layer balance: $<span class="usd_balance">0.00</span> <span class="btc_balance">0</span> </div>
+                <div><button class="withdraw">Withdraw</button></div>
+            </div>
+            <!-- Check for ln_domain and ln_readkey before displaying LN wallet -->
+            <!-- ln_domain && ln_readkey -->
+            <div class="ln_wallet">
+                <div>Lightning balance: $<span class="usd_balance">0.00</span> <span class="btc_balance">0</span> </div>
+                <div><button class="withdraw">Manage</button></div>
+            </div>
+            <div class="sales_title">Sales</div>
+            <div class="orders"></div>
                     </div>
                 `;
                 $('.connect_node').onclick = async () => {
@@ -1562,7 +1567,7 @@
                     }
                     if (!private_keys.includes(privkey) && !txinfo[3]) private_keys.push(privkey);
                     var bgcolor = "pink";
-                    var shipped_instructions = "click when shipped";
+                    var shipped_instructions = "Shipped?";
                     if (sale[3]) {
                         bgcolor = "lightgreen";
                         shipped_instructions = "shipped";
