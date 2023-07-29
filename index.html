@@ -1174,13 +1174,19 @@
                 </div>`;
             }
             var shipping_div = ``;
-                if (requires_shipping) {
-                    shipping_div = `
-                    <div class="delivery-instructions">
-                        <label for="edelivery_instructions" style="font-size: 13px; width: 100%;">Please enter your full address with pin code, and also provide your email or your public key or ask the store owner</label>
-                        <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Name...,  Address..., Contact.... & other  " style="font-size: 12px;"></textarea>
-                    </div>`;
-                }
+            if (requires_shipping) {
+            shipping_div = `
+                <div class="delivery-instructions">
+                    <label for="edelivery_instructions" style="font-size: 13px; width: 100%;">Please enter your full address with pin code, and also provide your email or your public key or ask the store owner</label>
+                    <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Name..., Address..., Contact.... & other" style="font-size: 12px; text-align: left;">
+Name: 
+Address: 
+Contact: 
+Other: 
+                    </textarea>
+                </div>`;
+            }
+
 
             $('.blank_view').innerHTML = `
             <div class="container">
@@ -1224,7 +1230,7 @@
                             <button class="bl_button">Base layer</button>
                         </div>
                         <div class="payment_content">
-                            <div class="ln_box">Lightning Payment</div>
+                            <div class="ln_box"><h2>Lightning Payment (Click on Invoice)</h2></div>
                             <div class="bl_box" style="display: none;">Base Layer Payment</div>
                         </div>
                     `;
@@ -1300,14 +1306,14 @@
 
                 // Generate the QR code with the invoice data
                 var invoiceRequest = JSON.parse(invoice_data)["payment_request"];
-    var invoiceQRCode = createQR(invoiceRequest);
+                var invoiceQRCode = createQR(invoiceRequest);
 
-    // Create a clickable link for the Lightning Network invoice
-    var invoiceLink = document.createElement('a');
-    invoiceLink.href = `lightning:${invoiceRequest}`;
-    invoiceLink.appendChild(invoiceQRCode);
-    $('.ln_box').append(invoiceLink);
-    $('.ln_box').append(JSON.parse(invoice_data)["payment_request"]);
+                // Create a clickable link for the Lightning Network invoice
+                var invoiceLink = document.createElement('a');
+                invoiceLink.href = `lightning:${invoiceRequest}`;
+                invoiceLink.appendChild(invoiceQRCode);
+                $('.ln_box').append(invoiceLink);
+                $('.ln_box').append(JSON.parse(invoice_data)["payment_request"]);
                 // Wait until the invoice is paid
                 await loopTilInvoiceIsPaid(JSON.parse(invoice_data)["payment_hash"]);
 
