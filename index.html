@@ -1140,7 +1140,7 @@
             // socket.send(JSON.stringify([ "EVENT", signedEvent ]));
             if (window.location.href.indexOf("?") > -1) var url = window.location.href.substring(0, window.location.href.indexOf("?")); else var url = window.location.href;
             sessionStorage.removeItem("modal_cleared");
-            var shareable = `${url}?pubkey=${original_pubkey}`;
+            var shareable = `${url}?pubkey=${original_pubkey}&relays=${encodeURI( JSON.stringify( relays ) )}`;
             var private = `${url}?privkey=${privKey}&relays=${encodeURI(JSON.stringify(relays))}`;
             if ($_GET["network"]) {
                 shareable += `&network=${$_GET["network"]}`;
