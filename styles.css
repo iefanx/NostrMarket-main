@@ -942,4 +942,51 @@ span.sats_to_pay {
   color: #5545b5;
 }
 
-/* Additional styling for the rest of the content (if needed) */
+
+
+
+
+
+/* Styles for the modal content container */
+.modal-content {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Styles for h2 (Items purchased) */
+.modal-content h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+
+/* Styles for the 'Total' paragraph */
+.modal-content p.total-paragraph {
+  color: #5545b5;
+  font-size: 16px;
+  margin: 5px;
+  font-weight: bold;
+}
+
+/* Styles for the 'Proof of payment' paragraph */
+.modal-content p.payment-paragraph {
+  font-family: 'Courier New', Courier, monospace;
+  color: #202020;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Styles for the 'Keep this on you' paragraph */
+.modal-content p.instruction-paragraph {
+  color: hsl(240, 1%, 28%);
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: bold;
+
+}
