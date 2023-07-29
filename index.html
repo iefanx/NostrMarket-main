@@ -895,7 +895,7 @@
 <body>
     
     <div class="title"></div>
-    <div class="splash_screen">Loading...</div>
+    <div class="splash_screen">Loading... </div>
     <div class="make_store">
         <div class="products">
             <div class="manage_sales_toolbar"></div>
@@ -1200,55 +1200,63 @@
             `;
 
             $('.view_store').style.display = "none";
-            $('.blank_view').style.display = "block";
-            $('.checkout').onclick = async () => {
-                if (($('.shipping_label_form') && !$('.shipping_label_form').value) || ($('.edelivery_form') && !$('.edelivery_form').value)) {
-                    alert("You forgot to enter delivery instructions, please do so and click the checkout button again");
-                    return;
-                }
-                if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
-                if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
-                $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 1.5rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
-                    <h2>Checkout</h2>
-                    <p class="main-content">
-                        Please do not close or refresh this page after making the payment until you receive the receipt here.
-                        Once you have made the payment, return to this page and wait for the receipt. Total amount: <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats. <br>
-                        If you do not receive the receipt after payment, please contact the store owner. 
-                       
-                        </p>
-                    <div class="payment_box"></div>
-                `;
-                if (ln_domain && ln_readkey) {
-                    $('.payment_box').innerHTML += `
-                        <div class="payment_buttons">
-                            <button class="ln_button ">Lightning</button>
-                            <button class="bl_button">Base layer</button>
-                        </div>
-                        <div class="payment_content">
-                            <div class="ln_box">Lightning Payment</div>
-                            <div class="bl_box" style="display: none;">Base Layer Payment</div>
-                        </div>
-                    `;
+$('.blank_view').style.display = "block";
+$('.checkout').onclick = async () => {
+    if (($('.shipping_label_form') && !$('.shipping_label_form').value) || ($('.edelivery_form') && !$('.edelivery_form').value)) {
+        alert("You forgot to enter delivery instructions, please do so and click the checkout button again");
+        return;
+    }
+    if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
+    if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
+    $('.blank_view').innerHTML = `
+        <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 1.5rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
+        <h2>Checkout</h2>
+        <p class="main-content">
+            Please do not close or refresh this page after making the payment until you receive the receipt here.
+            Once you have made the payment, return to this page and wait for the receipt. Total amount: <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats. <br>
+            If you do not receive the receipt after payment, please contact the store owner. 
+        </p>
+        <div class="payment_box">
+    <div class="loading_screen">
+        <div class="loader"></div>
+        <div class="loading_text">Waiting For Payment... </div>
+    </div>
+</div>
 
-                    // Add event listener for Base Layer button
-                    $('.bl_button').onclick = () => {
-                        $('.bl_box').style.display = "block";
-                        $('.ln_box').style.display = "none";
-                        $('.bl_button').classList.add('active');
-                        $('.ln_button').classList.remove('active');
-                    };
+    `;
+    if (ln_domain && ln_readkey) {
+        $('.payment_box').innerHTML += `
+            <div class="payment_buttons">
+                <button class="ln_button ">Lightning</button>
+                <button class="bl_button">Base layer</button>
+            </div>
+            <div class="payment_content">
+                <div class="ln_box">Lightning Payment</div>
+                <div class="bl_box" style="display: none;">Base Layer Payment</div>
+            </div>
+        `;
 
-                    // Add event listener for Lightning button
-                    $('.ln_button').onclick = async () => {
-                        $('.bl_box').style.display = "none";
-                        $('.ln_box').style.display = "block";
-                        $('.ln_button').classList.add('active');
-                        $('.bl_button').classList.remove('active');
-                    };
+        // Add event listener for Base Layer button
+        $('.bl_button').onclick = () => {
+            $('.bl_box').style.display = "block";
+            $('.ln_box').style.display = "none";
+            $('.bl_button').classList.add('active');
+            $('.ln_button').classList.remove('active');
+        };
 
-                    getInvoice(total);
-                }
+        // Add event listener for Lightning button
+        $('.ln_button').onclick = async () => {
+            $('.bl_box').style.display = "none";
+            $('.ln_box').style.display = "block";
+            $('.ln_button').classList.add('active');
+            $('.bl_button').classList.remove('active');
+        };
+
+        // Show loading screen while getting the invoice
+        $('.loading_screen').style.display = "block";
+        await getInvoice(total);
+        $('.loading_screen').style.display = "none";
+    }
 
                 var div = document.createElement("div");
                 div.className = "bl_box";
