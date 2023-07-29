@@ -1210,7 +1210,7 @@
                 if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
                 if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div><div style="font-weight: bold; font-size: 1.5rem;">Back</div></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div></div>
                     <h2>Checkout</h2>
                     
                     <h3>Please send <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and wait for your auto-generated receipt (your shipment is not guaranteed until you have your receipt)</h3>
@@ -1229,23 +1229,23 @@
                         </div>
                     `;
 
-    // Add event listener for Base Layer button
-    $('.bl_button').onclick = () => {
-        $('.bl_box').style.display = "block";
-        $('.ln_box').style.display = "none";
-        $('.bl_button').classList.add('active');
-        $('.ln_button').classList.remove('active');
-    };
+                // Add event listener for Base Layer button
+                $('.bl_button').onclick = () => {
+                    $('.bl_box').style.display = "block";
+                    $('.ln_box').style.display = "none";
+                    $('.bl_button').classList.add('active');
+                    $('.ln_button').classList.remove('active');
+                };
 
-    // Add event listener for Lightning button
-    $('.ln_button').onclick = async () => {
-        $('.bl_box').style.display = "none";
-        $('.ln_box').style.display = "block";
-        $('.ln_button').classList.add('active');
-        $('.bl_button').classList.remove('active');
-    };
+                // Add event listener for Lightning button
+                $('.ln_button').onclick = async () => {
+                    $('.bl_box').style.display = "none";
+                    $('.ln_box').style.display = "block";
+                    $('.ln_button').classList.add('active');
+                    $('.bl_button').classList.remove('active');
+                };
 
-    getInvoice(total);
+                getInvoice(total);
                 }
 
                 var div = document.createElement("div");
@@ -1293,38 +1293,56 @@
             }
         }
         $('.view_cart').onclick = renderCart;
-        var getInvoice = async (total) => {
-            var invoice_data = await postData(`${ln_domain}/api/v1/payments`, `{"out": false, "amount": ${Number($('.sats_to_pay').innerText)}}`, "application/json", ln_readkey);
-            $('.ln_box').append(createQR(JSON.parse(invoice_data)["payment_request"]));
-            $('.ln_box').append(JSON.parse(invoice_data)["payment_request"]);
-            await loopTilInvoiceIsPaid(JSON.parse(invoice_data)["payment_hash"]);
-            var buyer_info = {}
-            buyer_info["pmthash"] = JSON.parse(invoice_data)["payment_hash"];
-            if (sessionStorage.edelivery_form) buyer_info["edelivery_info"] = sessionStorage.edelivery_form;
-            if (sessionStorage.shipping_label_form) buyer_info["shipping_info"] = sessionStorage.shipping_label_form;
-            var message = JSON.stringify([buyer_info, [...cart]]);
-            var encrypted = encrypt(privKey, $_GET["pubkey"].substring(2), message);
-            var event = {
-                "content": encrypted,
-                "created_at": Math.floor(Date.now() / 1000),
-                "kind": 4,
-                "tags": [['p', $_GET["pubkey"].substring(2)]],
-                "pubkey": pubKey,
-            }
-            var signedEvent = await getSignedEvent(event, privKey);
-            Object.keys(relays_obj).forEach(function (relay) {
-                relays_obj[relay].send(JSON.stringify(["EVENT", signedEvent]));
-            });
-            // socket.send( JSON.stringify([ "EVENT", signedEvent ]) );
-            console.log("make sure this gets to the relay:", JSON.stringify(["EVENT", signedEvent]));
-            await waitSomeSeconds(2);
-            sessionStorage.removeItem("modal_cleared");
-            var receipt_items = ``;
-            cart.forEach(function (item, index) {
-                receipt_items += `<div>Item: ${item["item"]} | Price: $${(item["price"] / 100).toFixed(2)}</div>`;
-            });
-            cart = [];
-                if ($('.minicart_item_count')) $('.minicart_item_count').innerText = 0;
+
+            var getInvoice = async (total) => {
+                // Get the invoice data from the server
+                var invoice_data = await postData(`${ln_domain}/api/v1/payments`, `{"out": false, "amount": ${Number($('.sats_to_pay').innerText)}}`, "application/json", ln_readkey);
+
+                // Generate the QR code with the invoice data
+                var invoiceRequest = JSON.parse(invoice_data)["payment_request"];
+    var invoiceQRCode = createQR(invoiceRequest);
+
+    // Create a clickable link for the Lightning Network invoice
+    var invoiceLink = document.createElement('a');
+    invoiceLink.href = `lightning:${invoiceRequest}`;
+    invoiceLink.appendChild(invoiceQRCode);
+    $('.ln_box').append(invoiceLink);
+    $('.ln_box').append(JSON.parse(invoice_data)["payment_request"]);
+                // Wait until the invoice is paid
+                await loopTilInvoiceIsPaid(JSON.parse(invoice_data)["payment_hash"]);
+
+                // Prepare buyer information and cart data
+                var buyer_info = {
+                    "pmthash": JSON.parse(invoice_data)["payment_hash"],
+                };
+                if (sessionStorage.edelivery_form) buyer_info["edelivery_info"] = sessionStorage.edelivery_form;
+                if (sessionStorage.shipping_label_form) buyer_info["shipping_info"] = sessionStorage.shipping_label_form;
+                var message = JSON.stringify([buyer_info, [...cart]]);
+                var encrypted = encrypt(privKey, $_GET["pubkey"].substring(2), message);
+                var event = {
+                    "content": encrypted,
+                    "created_at": Math.floor(Date.now() / 1000),
+                    "kind": 4,
+                    "tags": [['p', $_GET["pubkey"].substring(2)]],
+                    "pubkey": pubKey,
+                };
+                var signedEvent = await getSignedEvent(event, privKey);
+
+                // Send the event to relays
+                Object.keys(relays_obj).forEach(function (relay) {
+                    relays_obj[relay].send(JSON.stringify(["EVENT", signedEvent]));
+                });
+
+                // Wait for a short period
+                await waitSomeSeconds(2);
+
+                // Remove modal_cleared session data
+                sessionStorage.removeItem("modal_cleared");
+
+                // Prepare receipt items for the modal content
+                var receipt_items = cart.map(item => `<div>Item: ${item["item"]} | Price: $${(item["price"] / 100).toFixed(2)}</div>`).join('');
+
+                // Display the modal with the receipt information
                 var content = `<div style="text-align: center;">
                     <div class="modal-wrapper">
                     <div class="modal-content">
@@ -1336,11 +1354,11 @@
                     </div>
                 </div>
             </div>`;
-                
+
                 showModal(content, true);
                 await getNote("modal_cleared");
+            };
 
-        }
         var checkInvoice = async (pmthash) => {
             var status = await getData(`${ln_domain}/api/v1/payments/${pmthash}`, "application/json", ln_readkey);
             status = JSON.parse(status);
