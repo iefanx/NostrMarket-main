@@ -474,7 +474,7 @@
             var relays = JSON.parse(decodeURI($_GET["relays"]));
             relay = relays[0];
         } else {
-            var relays = [relay, "wss://relay.wellorder.net", "wss://relay.damus.io"];
+            var relays = [relay, "wss://relay.wellorder.net", "wss://relay.damus.io,"];
         }
         var relays_obj = {}
         // var socket = new WebSocket( relay );
