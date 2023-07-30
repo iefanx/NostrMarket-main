@@ -474,7 +474,7 @@
             var relays = JSON.parse(decodeURI($_GET["relays"]));
             relay = relays[0];
         } else {
-            var relays = [relay, "wss://relay.wellorder.net", "wss://relay.damus.io,"];
+            var relays = [relay, "wss://relay.wellorder.net", "wss://relay.damus.io"];
         }
         var relays_obj = {}
         // var socket = new WebSocket( relay );
@@ -895,7 +895,7 @@
 <body>
     
     <div class="title"></div>
-    <div class="splash_screen">Loading... </div>
+    <div class="splash_screen">Loading...</div>
     <div class="make_store">
         <div class="products">
             <div class="manage_sales_toolbar"></div>
@@ -906,7 +906,7 @@
             <input class="store_name">
             <h2 class="product_instructions">Add products</h2>
             <div class="product">
-                <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>--- Shipping zone ---</option><option>Write in description</option><option>Worldwide</option></select><input placeholder="usd price (e.g. 0.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" margin="2px" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label for="no_price_0"  style="display: inline;vertical-align: middle;">Let users set the price</label></div><button class="preview">Product preview</button><button class="plus_and_minus">Add another product</button>
+                <input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>--- Shipping zone ---</option><option>Free (digital)</option><option>Worldwide</option><option>Europe</option><option>Australia</option><option>Austria</option><option>Belgium</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>Hong Kong</option><option>Hungary</option><option>Ireland</option><option>Indonesia</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Kazakhstan</option><option>Korea</option><option>Luxembourg</option><option>Malaysia</option><option>Mexico</option><option>Netherlands</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Russia</option><option>Saudi Arabia</option><option>Singapore</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>Thailand</option><option>Turkey</option><option>Ukraine</option><option>United Kingdom</option><option>United States</option><option>Vietnam</option><option>China</option></select><input placeholder="usd price (e.g. 5.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_0"><label for="no_price_0" style="display: inline;vertical-align: middle;">Let users set the price</label></div><button class="preview">Product preview</button><button class="plus_and_minus">Add another product</button>
             </div>
         </div>
         <p><button class="store_maker">Submit</button></p>
@@ -922,7 +922,6 @@
 
     <div class="view_store">
         <div class="minicart">
-            
 
             Cart <span class="minicart_item_count">0</span>
             <button class="view_cart">View cart</button>
@@ -995,7 +994,7 @@
             var product = document.createElement("div");
             product.className = "product";
             var num = Math.floor(Math.random() * 10000000);
-            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>Shipping zone</option><option>Write in description</option><option>Worldwide</option></select><input placeholder=" price (e.g. 0.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
+            product.innerHTML = `<input placeholder="product name"><input placeholder="image url"><textarea placeholder="description" class="desc"></textarea><select placeholder="shipping zone"><option>Shipping zone</option><option>Free (digital)</option><option>Worldwide</option><option>Europe</option><option>Australia</option><option>Austria</option><option>Belgium</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>Hong Kong</option><option>Hungary</option><option>Ireland</option><option>Indonesia</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Kazakhstan</option><option>Korea</option><option>Luxembourg</option><option>Malaysia</option><option>Mexico</option><option>Netherlands</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Russia</option><option>Saudi Arabia</option><option>Singapore</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>Thailand</option><option>Turkey</option><option>Ukraine</option><option>United Kingdom</option><option>United States</option><option>Vietnam</option><option>China</option></select><input placeholder=" price (e.g. 5.99)" class="price" type="number" step="0.01" min="0"><div style="margin-bottom: 1rem;"><input type="checkbox" style="width: 1rem;vertical-align: middle;margin-bottom: auto;" id="no_price_${num}"><label for="no_price_${num}" style="display: inline;vertical-align: middle;">Let users set the price</label></div>`;
             product.getElementsByTagName("label")[0].previousElementSibling.onclick = () => {
                 var elem = product.getElementsByTagName("label")[0].previousElementSibling;
                 if (elem.checked) {
@@ -1140,7 +1139,7 @@
             // socket.send(JSON.stringify([ "EVENT", signedEvent ]));
             if (window.location.href.indexOf("?") > -1) var url = window.location.href.substring(0, window.location.href.indexOf("?")); else var url = window.location.href;
             sessionStorage.removeItem("modal_cleared");
-            var shareable = `${url}?pubkey=${original_pubkey}&relays=${encodeURI( JSON.stringify( relays ) )}`;
+            var shareable = `${url}?pubkey=${original_pubkey}`;
             var private = `${url}?privkey=${privKey}&relays=${encodeURI(JSON.stringify(relays))}`;
             if ($_GET["network"]) {
                 shareable += `&network=${$_GET["network"]}`;
@@ -1160,7 +1159,7 @@
             var requires_edelivery = false;
             var requires_shipping = false;
             cart.forEach(function (item) {
-                if (item["shipping_zone"] != "Write in description") requires_shipping = true; else requires_edelivery = true;
+                if (item["shipping_zone"] != "Free (digital)") requires_shipping = true; else requires_edelivery = true;
                 total = total + item["price"];
                 items += `<div class="minicart" style="display: flex; justify-content: space-between; text-align: left;"><div>${item["item"]}</div><div style="text-align: right;align-self: center;">$${(item["price"] / 100).toFixed(2)} <span style=" width: auto; height: auto; display: inline-block;text-align: center; cursor: pointer;" onclick="var child = this.parentElement.parentElement;var parent = child.parentNode;var index = Array.prototype.indexOf.call(parent.children, child);cart.splice( index, 1 );renderCart();$( '.minicart_item_count' ).innerText = Number( $( '.minicart_item_count' ).innerText ) - 1;">&times;</span></div></div>`;
             });
@@ -1169,25 +1168,18 @@
             if (requires_edelivery) {
                 edelivery_div = `
                 <div class="delivery-instructions">
-                <label for="edelivery_instructions" style="font-size: 13px; width: 100%;">Enter instructions for how to deliver your good </label>
-                <textarea id="edelivery_instructions" class="edelivery_form"  style="width: 95%; height: 5rem;" ></textarea>
+                <label for="edelivery_instructions">Enter instructions for how to deliver your digital good </label>
+                <textarea id="edelivery_instructions" class="edelivery_form"  style="width: 100%; height: 5rem;"></textarea>
                 </div>`;
             }
             var shipping_div = ``;
             if (requires_shipping) {
-            shipping_div = `
+                shipping_div = `
                 <div class="delivery-instructions">
-                    <label for="edelivery_instructions" style="font-size: 13px; width: 100%;">Please enter your full address with pin code, and also provide your email or your public key or ask the store owner</label>
-                    <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Name..., Address..., Contact.... & other" style="font-size: 12px; text-align: left;">
-Name: 
-Address: 
-Contact: 
-Other: 
-                    </textarea>
+                <label for="edelivery_instructions">Please enter your full address with pin code, and also provide your email or your public key.</label>
+                <textarea id="edelivery_instructions" class="edelivery_form" placeholder="Write your instructions here..."></textarea>
                 </div>`;
             }
-
-
             $('.blank_view').innerHTML = `
             <div class="container">
                 <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.view_store' ).style.display = 'block';">
@@ -1205,7 +1197,6 @@ Other:
             </div>
             `;
 
-            
             $('.view_store').style.display = "none";
             $('.blank_view').style.display = "block";
             $('.checkout').onclick = async () => {
@@ -1216,10 +1207,9 @@ Other:
                 if ($('.shipping_label_form')) sessionStorage.shipping_label_form = $('.shipping_label_form').value;
                 if ($('.edelivery_form')) sessionStorage.edelivery_form = $('.edelivery_form').value;
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;">⇦</div></div>
+                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="renderCart();"><div style="display: flex; align-items: center; font-weight: bold; font-size: 2rem; margin-right: 0.5rem;"></div><div style="font-weight: bold; font-size: 2rem;">⇦</div></div>
                     <h2>Checkout</h2>
-                    
-                    <h3>Please send <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and wait for your auto-generated receipt (your shipment is not guaranteed until you have your receipt)</h3>
+                    Kindly send  <span class="sats_to_pay" style="font-weight: bold; color: 5545b5;">${dollarsToSats((total / 100).toFixed(2))}</span> sats and await your auto-generated receipt. Please note that your shipment is not guaranteed until you receive the receipt.
                     <br><br>
                     <div class="payment_box"></div>
                 `;
@@ -1230,28 +1220,28 @@ Other:
                             <button class="bl_button">Base layer</button>
                         </div>
                         <div class="payment_content">
-                            <div class="ln_box"><h2>Lightning Payment (Click on Invoice)</h2></div>
+                            <div class="ln_box">Lightning Payment</div>
                             <div class="bl_box" style="display: none;">Base Layer Payment</div>
                         </div>
                     `;
 
-                // Add event listener for Base Layer button
-                $('.bl_button').onclick = () => {
-                    $('.bl_box').style.display = "block";
-                    $('.ln_box').style.display = "none";
-                    $('.bl_button').classList.add('active');
-                    $('.ln_button').classList.remove('active');
-                };
+                    // Add event listener for Base Layer button
+                    $('.bl_button').onclick = () => {
+                        $('.bl_box').style.display = "block";
+                        $('.ln_box').style.display = "none";
+                        $('.bl_button').classList.add('active');
+                        $('.ln_button').classList.remove('active');
+                    };
 
-                // Add event listener for Lightning button
-                $('.ln_button').onclick = async () => {
-                    $('.bl_box').style.display = "none";
-                    $('.ln_box').style.display = "block";
-                    $('.ln_button').classList.add('active');
-                    $('.bl_button').classList.remove('active');
-                };
+                    // Add event listener for Lightning button
+                    $('.ln_button').onclick = async () => {
+                        $('.bl_box').style.display = "none";
+                        $('.ln_box').style.display = "block";
+                        $('.ln_button').classList.add('active');
+                        $('.bl_button').classList.remove('active');
+                    };
 
-                getInvoice(total);
+                    getInvoice(total);
                 }
 
                 var div = document.createElement("div");
@@ -1299,72 +1289,42 @@ Other:
             }
         }
         $('.view_cart').onclick = renderCart;
-
-            var getInvoice = async (total) => {
-                // Get the invoice data from the server
-                var invoice_data = await postData(`${ln_domain}/api/v1/payments`, `{"out": false, "amount": ${Number($('.sats_to_pay').innerText)}}`, "application/json", ln_readkey);
-
-                // Generate the QR code with the invoice data
-                var invoiceRequest = JSON.parse(invoice_data)["payment_request"];
-                var invoiceQRCode = createQR(invoiceRequest);
-
-                // Create a clickable link for the Lightning Network invoice
-                var invoiceLink = document.createElement('a');
-                invoiceLink.href = `lightning:${invoiceRequest}`;
-                invoiceLink.appendChild(invoiceQRCode);
-                $('.ln_box').append(invoiceLink);
-                $('.ln_box').append(JSON.parse(invoice_data)["payment_request"]);
-                // Wait until the invoice is paid
-                await loopTilInvoiceIsPaid(JSON.parse(invoice_data)["payment_hash"]);
-
-                // Prepare buyer information and cart data
-                var buyer_info = {
-                    "pmthash": JSON.parse(invoice_data)["payment_hash"],
-                };
-                if (sessionStorage.edelivery_form) buyer_info["edelivery_info"] = sessionStorage.edelivery_form;
-                if (sessionStorage.shipping_label_form) buyer_info["shipping_info"] = sessionStorage.shipping_label_form;
-                var message = JSON.stringify([buyer_info, [...cart]]);
-                var encrypted = encrypt(privKey, $_GET["pubkey"].substring(2), message);
-                var event = {
-                    "content": encrypted,
-                    "created_at": Math.floor(Date.now() / 1000),
-                    "kind": 4,
-                    "tags": [['p', $_GET["pubkey"].substring(2)]],
-                    "pubkey": pubKey,
-                };
-                var signedEvent = await getSignedEvent(event, privKey);
-
-                // Send the event to relays
-                Object.keys(relays_obj).forEach(function (relay) {
-                    relays_obj[relay].send(JSON.stringify(["EVENT", signedEvent]));
-                });
-
-                // Wait for a short period
-                await waitSomeSeconds(2);
-
-                // Remove modal_cleared session data
-                sessionStorage.removeItem("modal_cleared");
-
-                // Prepare receipt items for the modal content
-                var receipt_items = cart.map(item => `<div>Item: ${item["item"]} | Price: $${(item["price"] / 100).toFixed(2)}</div>`).join('');
-
-                // Display the modal with the receipt information
-                var content = `<div style="text-align: center;">
-                    <div class="modal-wrapper">
-                    <div class="modal-content">
-                        <h2>Items purchased</h2>
-                        <h3>${receipt_items}</h3>
-                        <p class="total-paragraph">Total: $${(total / 100).toFixed(2)}</p>
-                        <p class="payment-paragraph">Proof of payment: ${buyer_info["pmthash"]}</p>
-                        <p class="instruction-paragraph">Keep this on you until you receive your item. If the seller does not send you your item, contact them and show them your proof of payment.</p>
-                    </div>
-                </div>
-            </div>`;
-
-                showModal(content, true);
-                await getNote("modal_cleared");
-            };
-
+        var getInvoice = async (total) => {
+            var invoice_data = await postData(`${ln_domain}/api/v1/payments`, `{"out": false, "amount": ${Number($('.sats_to_pay').innerText)}}`, "application/json", ln_readkey);
+            $('.ln_box').append(createQR(JSON.parse(invoice_data)["payment_request"]));
+            $('.ln_box').append(JSON.parse(invoice_data)["payment_request"]);
+            await loopTilInvoiceIsPaid(JSON.parse(invoice_data)["payment_hash"]);
+            var buyer_info = {}
+            buyer_info["pmthash"] = JSON.parse(invoice_data)["payment_hash"];
+            if (sessionStorage.edelivery_form) buyer_info["edelivery_info"] = sessionStorage.edelivery_form;
+            if (sessionStorage.shipping_label_form) buyer_info["shipping_info"] = sessionStorage.shipping_label_form;
+            var message = JSON.stringify([buyer_info, [...cart]]);
+            var encrypted = encrypt(privKey, $_GET["pubkey"].substring(2), message);
+            var event = {
+                "content": encrypted,
+                "created_at": Math.floor(Date.now() / 1000),
+                "kind": 4,
+                "tags": [['p', $_GET["pubkey"].substring(2)]],
+                "pubkey": pubKey,
+            }
+            var signedEvent = await getSignedEvent(event, privKey);
+            Object.keys(relays_obj).forEach(function (relay) {
+                relays_obj[relay].send(JSON.stringify(["EVENT", signedEvent]));
+            });
+            // socket.send( JSON.stringify([ "EVENT", signedEvent ]) );
+            console.log("make sure this gets to the relay:", JSON.stringify(["EVENT", signedEvent]));
+            await waitSomeSeconds(2);
+            sessionStorage.removeItem("modal_cleared");
+            var receipt_items = ``;
+            cart.forEach(function (item, index) {
+                receipt_items += `<div>Item: ${item["item"]} | Price: $${(item["price"] / 100).toFixed(2)}</div>`;
+            });
+            cart = [];
+            if ($('.minicart_item_count')) $('.minicart_item_count').innerText = 0;
+            var content = `<p>Thank you for your business. Here is your receipt:</p><p style="font-weight: bold;">Items purchased</p>${receipt_items}<p>Total: $${(total / 100).toFixed(2)}</p><p>Proof of payment: ${buyer_info["pmthash"]}</p><p>Keep this on you till you recieve your item. If the seller does not send you your item, contact them and show them your proof of payment.</p>`;
+            showModal(content, true);
+            await getNote("modal_cleared");
+        }
         var checkInvoice = async (pmthash) => {
             var status = await getData(`${ln_domain}/api/v1/payments/${pmthash}`, "application/json", ln_readkey);
             status = JSON.parse(status);
@@ -1475,21 +1435,17 @@ Other:
                 $('.store_maker').parentElement.style.display = "none";
                 $('.blank_view').style.display = "block";
                 $('.blank_view').innerHTML = `
-                    <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.products' ).style.display = 'block';$( '.store_maker' ).parentElement.style.display = 'block';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-size: 2rem; font-weight: bold;">⇦</div></div>
-            <div class="wallet_title">Wallet</div>
-            <button class="connect_node">Connect your node</button>
-            <div class="wallet">
-                <div>Base layer balance: $<span class="usd_balance">0.00</span> <span class="btc_balance">0</span> </div>
-                <div><button class="withdraw">Withdraw</button></div>
-            </div>
-            <!-- Check for ln_domain and ln_readkey before displaying LN wallet -->
-            <!-- ln_domain && ln_readkey -->
-            <div class="ln_wallet">
-                <div>Lightning balance: $<span class="usd_balance">0.00</span> <span class="btc_balance">0</span> </div>
-                <div><button class="withdraw">Manage</button></div>
-            </div>
-            <div class="sales_title">Sales</div>
-            <div class="orders"></div>
+                    <div>
+                        <div style="display: flex; align-items: center; cursor: pointer;" onclick="$( '.blank_view' ).style.display = 'none';$( '.products' ).style.display = 'block';$( '.store_maker' ).parentElement.style.display = 'block';"><div style="display: flex; align-items: center; font-weight: bold; font-size: 3rem; margin-right: 0.5rem;"></div><div style="font-size: 1.5rem; font-weight: bold;">Back</div></div>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;"><div style="font-weight: bold;">Wallet</div><button class="connect_node">Connect your node</button></div><br>
+                        <div class="wallet" style="display: flex;justify-content: space-between;background-color: orange;padding: 0.5rem;align-items: center;"><div>Base layer balance: $<span class="usd_balance">0.00</span> (<span class="btc_balance">0</span>&nbsp;sats)</div><div><button class="withdraw">Withdraw</button></div></div><br>
+                `;
+                if (ln_domain && ln_readkey) $('.blank_view').innerHTML += `                
+                        <div class="ln_wallet" style="display: flex;justify-content: space-between;background-color: lightblue;padding: 0.5rem;align-items: center;"><div>Lightning balance: $<span class="usd_balance">0.00</span> (<span class="btc_balance">0</span>&nbsp;sats)</div><div><button class="withdraw">Manage</button></div></div><br>
+                `;
+                $('.blank_view').innerHTML += `
+                        <div style="font-weight: bold;">Sales</div><br>
+                        <div class="orders"></div>
                     </div>
                 `;
                 $('.connect_node').onclick = async () => {
@@ -1606,7 +1562,7 @@ Other:
                     }
                     if (!private_keys.includes(privkey) && !txinfo[3]) private_keys.push(privkey);
                     var bgcolor = "pink";
-                    var shipped_instructions = "Shipped?";
+                    var shipped_instructions = "click when shipped";
                     if (sale[3]) {
                         bgcolor = "lightgreen";
                         shipped_instructions = "shipped";
